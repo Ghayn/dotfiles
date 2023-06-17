@@ -26,3 +26,5 @@ fi
 if (( $+commands[dust] )); then
   alias tree=dust
 fi
+
+export PATH="$HOME/.cargo/bin:$HOME/.local/bin:$PATH"
