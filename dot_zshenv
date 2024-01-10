@@ -3,7 +3,8 @@ export XDG_BIN_HOME="$HOME/.local/bin"
 export HOMEBREW_NO_ANALYTICS=1
 export SSH_AUTH_SOCK=~/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock
 export PNPM_HOME="$HOME/Library/pnpm"
-export CARGO_HOME="$HOME/.cargo/bin"
+export CARGO_HOME="$HOME/.cargo"
+
 
 
 if [[ "$(uname -m)" == "arm64" ]]; then
@@ -47,6 +48,6 @@ esac
 
 case ":$PATH:" in
   *":$CARGO_HOME:"*) ;;
-  *) export PATH="$CARGO_HOME:$PATH" ;;
+# *) export PATH="$CARGO_HOME:$PATH" ;;
+  *) . "$HOME/.cargo/env" ;;
 esac
-
