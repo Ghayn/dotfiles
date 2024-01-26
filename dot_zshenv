@@ -1,53 +1,40 @@
+# 检查命令是否可用并添加路径到PATH
+add_to_path_if_missing() {
+  local dir="$1"
+  if [ -d "$dir" ] && [[ ":$PATH:" != *":$dir:"* ]]; then
+    export PATH="$dir:$PATH"
+  fi
+}
+
+# 若目标命令存在则设置别名
+set_alias_if_command_exists() {
+  local alias_name="$1"
+  local command_name="$2"
+  command -v "$command_name" &> /dev/null && alias "$alias_name"="$command_name"
+}
+
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_BIN_HOME="$HOME/.local/bin"
 export HOMEBREW_NO_ANALYTICS=1
 export SSH_AUTH_SOCK=~/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock
 export PNPM_HOME="$HOME/Library/pnpm"
-export CARGO_HOME="$HOME/.cargo"
+export CARGO_HOME="$HOME/.cargo/bin"
+
+# 根据操作系统架构设置Homebrew路径
+BREW_PATH="/usr/local/bin/brew"
+[[ "$(uname -m)" == "arm64" ]] && BREW_PATH="/opt/homebrew/bin/brew"
+eval "$($BREW_PATH shellenv)"
 
 
+add_to_path_if_missing "$PNPM_HOME"
+add_to_path_if_missing "$XDG_BIN_HOME"
+add_to_path_if_missing "$CARGO_HOME"
 
-if [[ "$(uname -m)" == "arm64" ]]; then
-  eval "$(/opt/homebrew/bin/brew shellenv)"
-else 
-  eval "$(/usr/local/bin/brew shellenv)"
-fi
+set_alias_if_command_exists "cat" "bat"
+set_alias_if_command_exists "df" "duf"
+set_alias_if_command_exists "tree" "dust"
+set_alias_if_command_exists "diff" "difft"
+set_alias_if_command_exists "vim" "nvim"
+export EDITOR='nvim'
 
 eval "$(zoxide init zsh)"
-
-if (( $+commands[nvim] )); then
-  export EDITOR='nvim'
-  alias vim=nvim
-fi
-
-if (( $+commands[bat] )); then
-  alias cat=bat
-fi
-
-if (( $+commands[duf] )); then
-  alias df=duf
-fi
-
-if (( $+commands[dust] )); then
-  alias tree=dust
-fi
-
-if (( $+commands[difft] )); then
-  alias diff=difft
-fi
-
-case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
-esac
-
-case ":$PATH:" in
-  *":$XDG_BIN_HOME:"*) ;;
-  *) export PATH="$XDG_BIN_HOME:$PATH" ;;
-esac
-
-case ":$PATH:" in
-  *":$CARGO_HOME:"*) ;;
-# *) export PATH="$CARGO_HOME:$PATH" ;;
-  *) . "$HOME/.cargo/env" ;;
-esac
