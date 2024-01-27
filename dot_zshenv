@@ -30,6 +30,7 @@ add_to_path_if_missing "$PNPM_HOME"
 add_to_path_if_missing "$XDG_BIN_HOME"
 add_to_path_if_missing "$CARGO_HOME"
 
+set_alias_if_command_exists "ls" "eza"
 set_alias_if_command_exists "cat" "bat"
 set_alias_if_command_exists "df" "duf"
 set_alias_if_command_exists "tree" "dust"
