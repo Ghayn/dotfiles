@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>customSites</key>
+	<dict>
+		<key>E10F0275-DE16-4A49-80E6-C60252A1D9C6</key>
+		<dict>
+			<key>enabled</key>
+			<true/>
+			<key>keyword</key>
+			<string>gh</string>
+			<key>text</key>
+			<string>github</string>
+			<key>url</key>
+			<string>https://github.com/search?q={query}</string>
+		</dict>
+		<key>F97E1BFF-0110-49BC-8952-160F8F39E92E</key>
+		<dict>
+			<key>enabled</key>
+			<true/>
+			<key>keyword</key>
+			<string>dict</string>
+			<key>text</key>
+			<string>webster</string>
+			<key>url</key>
+			<string>https://www.merriam-webster.com/dictionary/{query}</string>
+		</dict>
+	</dict>
+	<key>onlyShowEnabledInPrefs</key>
+	<true/>
+</dict>
+</plist>
